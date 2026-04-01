@@ -97,11 +97,6 @@ contract Escrow is IEscrow {
 
             bytes32 escrowId = keccak256(abi.encode(_escrows[i]));
 
-            // Check if the escrow already exists
-            if (statuses[escrowId] != EscrowStatus.NULL) {
-                revert InvalidStatus();
-            }
-
             statuses[escrowId] = EscrowStatus.CREATED;
             escrows[escrowId] = _escrows[i];
 
@@ -162,8 +157,6 @@ contract Escrow is IEscrow {
             statuses[escrowId] = EscrowStatus.REFUND_DEPOSIT;
         } else if (status == EscrowStatus.REFUND_RECIPIENT) {
             statuses[escrowId] = EscrowStatus.FINALIZED;
-        } else {
-            revert InvalidStatus();
         }
 
         if (_escrow.refundAmount > 0) {
