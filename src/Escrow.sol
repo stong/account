@@ -163,8 +163,6 @@ contract Escrow is IEscrow {
             statuses[escrowId] = EscrowStatus.REFUND_DEPOSIT;
         } else if (status == EscrowStatus.REFUND_RECIPIENT) {
             statuses[escrowId] = EscrowStatus.FINALIZED;
-        } else {
-            revert InvalidStatus();
         }
 
         if (_escrow.refundAmount > 0) {
